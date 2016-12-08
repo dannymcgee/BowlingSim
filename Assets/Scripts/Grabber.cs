@@ -114,6 +114,9 @@ public class Grabber : MonoBehaviour {
 		}
 
 		// Invoke the grabber to grab the pins when they fall into the imaginary "notch"
+		// FIXME - this works, but it's more than a little awkward -- we're waiting 0.15s because that's
+		// how long it takes (based on eyeballing and experiment) for the pins to fall into a desirable
+		// position due to gravity. For obvious reasons, this is not the ideal way to do this.
 		Invoke( "GrabPins", 0.15f );
 		isRenewing = true;
 
