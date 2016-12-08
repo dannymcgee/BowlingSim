@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
@@ -8,16 +9,21 @@ public class GameManager : MonoBehaviour {
 
 	private PinSetter pinSetter;
 	private Ball ball;
+	private ScoreDisplay scoreDisplay;
 
 	// Use this for initialization
 	void Start() {
 
 		pinSetter = GameObject.FindObjectOfType<PinSetter>();
 		ball = GameObject.FindObjectOfType<Ball>();
+		scoreDisplay = GameObject.FindObjectOfType<ScoreDisplay>();
 	
 	}
 
 	public void Bowl( int pinFall ) {
+
+		// reset the ball
+		ball.Reset();
 
 		// add this pinFall to the list
 		pinFalls.Add( pinFall );
@@ -27,7 +33,14 @@ public class GameManager : MonoBehaviour {
 
 		// coordinate actions
 		pinSetter.PerformAction( nextAction );
-		ball.Reset();
+
+		try {
+			// mark the scorecard
+			scoreDisplay.FillRollCard( pinFalls );
+		} catch {
+			Debug.LogError( "FillRollCard encountered an error!" );
+		}
+
 
 	}
 

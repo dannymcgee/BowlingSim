@@ -17,10 +17,8 @@ public class Shredder : MonoBehaviour {
 		GameObject hitObject = collider.gameObject;
 		
 		if( hitObject.GetComponent<Ball>() ) {
-			print( "Don't shred the ball!" );
 			// Destroy( hitObject );
 		} else if( hitObject.GetComponent<Pin>() ) {
-			print( "Shredding Pin!" );
 			Destroy( hitObject );
 		}
 

@@ -77,6 +77,7 @@ public class PinCounter : MonoBehaviour {
 		lastSettledCount = CountStanding();
 
 		// report the result of this roll to the GameManager
+		Debug.Log( "Registering the bowl -- pinFall: " + pinFall.ToString() );
 		gameManager.Bowl( pinFall );
 
 		// reset the lastStandingCount so that it will satisfy
