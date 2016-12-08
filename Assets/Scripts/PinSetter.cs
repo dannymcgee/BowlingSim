@@ -18,16 +18,6 @@ public class PinSetter : MonoBehaviour {
 		animator = GetComponent<Animator>();
 	
 	}
-
-	void OnTriggerEnter( Collider collider ) {
-		
-		GameObject objectHit = collider.gameObject;
-		if( objectHit.GetComponent<Ball>() ) {
-			// tell the pinCounter to look for fallen pins when the ball enters the trigger
-			pinCounter.StartCounting();
-		}
-
-	}
 	
 	// Update is called once per frame
 	void Update() {

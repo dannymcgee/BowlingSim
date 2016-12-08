@@ -5,6 +5,8 @@ using System.Collections;
 public class PinCounter : MonoBehaviour {
 
 	public Text standingDisplay;
+
+	private GameManager gameManager;
 	private bool ballEnteredBox = false;
 	private float lastChangeTime;
 	private int lastStandingCount = -1;
@@ -12,11 +14,21 @@ public class PinCounter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-	
+		gameManager = GameObject.FindObjectOfType<GameManager>();
 	}
 
 	public void Reset() {
 		lastSettledCount = 10;
+	}
+
+	void OnTriggerEnter( Collider collider ) {
+
+		GameObject objectHit = collider.gameObject;
+		if( objectHit.GetComponent<Ball>() ) {
+			// look for fallen pins when the ball enters the trigger
+			StartCounting();
+		}
+
 	}
 
 	public void StartCounting() {
@@ -64,10 +76,8 @@ public class PinCounter : MonoBehaviour {
 		int pinFall = lastSettledCount - CountStanding();
 		lastSettledCount = CountStanding();
 
-		// get the action specified for the result of this roll
-		// ActionMaster.Action action = actionMaster.Bowl( pinFall );
-		// action = ActionMaster.NextAction( TODO - list of pinFalls );
-		// Debug.Log( "PinFall: " + pinFall );
+		// report the result of this roll to the GameManager
+		gameManager.Bowl( pinFall );
 
 		// reset the lastStandingCount so that it will satisfy
 		// CheckStandingCount's primary conditional on the next roll
