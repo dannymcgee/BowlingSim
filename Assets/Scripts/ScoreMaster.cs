@@ -1,15 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class ScoreMaster : MonoBehaviour {
+public class ScoreMaster {
 
-	// Use this for initialization
-	void Start () {
-	
+	public List<int> ScoreFrames( List<int> rolls ) {
+		
+		List<int> frameList = new List<int>();
+
+		int i = 1;
+		foreach( int roll in rolls ) {
+			
+			// roll #[i] knocked down [roll] pins
+
+			i++;
+		}
+
+		return frameList;
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
