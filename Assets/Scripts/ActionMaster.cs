@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ActionMaster {
 
@@ -13,6 +14,10 @@ public class ActionMaster {
 
 	private int[] bowls = new int[21];
 	private int bowl = 1;
+
+	/*	public static Action NextAction( List<int> pinFalls ) {
+
+	}*/
 
 	public Action Bowl( int pins ) {
 

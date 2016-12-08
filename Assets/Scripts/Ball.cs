@@ -48,7 +48,9 @@ public class Ball : MonoBehaviour {
 	void Update() {
 
 		if( Input.GetButtonDown( "Fire1" ) ) {
-			Launch( launchVelocity, launchAngularVelocity );
+			if( !inPlay ) {
+				Launch( launchVelocity, launchAngularVelocity );
+			}
 		}
 	
 	}
