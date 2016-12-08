@@ -75,6 +75,7 @@ public class PinSetter : MonoBehaviour {
 
 		// get the action specified for the result of this roll
 		ActionMaster.Action action = actionMaster.Bowl( pinFall );
+		// action = ActionMaster.NextAction( TODO - list of pinFalls );
 		Debug.Log( "PinFall: " + pinFall );
 
 		// perform the tidy action
