@@ -18,7 +18,7 @@ public class Ball : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 
-		Time.timeScale = 0.85f;
+		Time.timeScale = 1f;
 		Time.fixedDeltaTime = 0.02f * 0.1f;
 		
 		rigidBody = GetComponent<Rigidbody>();
