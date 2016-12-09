@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 	private PinSetter pinSetter;
 	private Ball ball;
 	private ScoreDisplay scoreDisplay;
+	private InputController inputController;
 
 	// Use this for initialization
 	void Start() {
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour {
 		pinSetter = GameObject.FindObjectOfType<PinSetter>();
 		ball = GameObject.FindObjectOfType<Ball>();
 		scoreDisplay = GameObject.FindObjectOfType<ScoreDisplay>();
+		inputController = GameObject.FindObjectOfType<InputController>();
 
 		// create the list of rolls
 		rolls = new List<int>();
@@ -57,6 +59,10 @@ public class GameManager : MonoBehaviour {
 
 		// reset the ball
 		ball.Reset();
+
+		// reset player controls
+		inputController.SetMode( InputController.ControlMode.Move );
+		inputController.ResetLaunchVelocity();
 
 		// mark the scorecard
 		try {
