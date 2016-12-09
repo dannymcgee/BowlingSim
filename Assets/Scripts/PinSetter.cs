@@ -6,7 +6,6 @@ public class PinSetter : MonoBehaviour {
 
 	public Grabber grabber;
 
-	private ActionMaster actionMaster = new ActionMaster();
 	private PinCounter pinCounter;
 	private Animator animator;
 
@@ -39,9 +38,16 @@ public class PinSetter : MonoBehaviour {
 
 		// end the game
 		if( action == ActionMaster.Action.EndGame ) {
-			Debug.Log( "Game Over! What do I do now?" );
+			animator.SetTrigger( "resetTrigger" );
+			Invoke( "EndGame", 9f );
 		}
 
+	}
+
+	void EndGame() {
+		animator.enabled = false;
+		GameObject pinLights = GameObject.Find( "PinLights" );
+		pinLights.SetActive( false );
 	}
 
 

@@ -10,20 +10,15 @@ public class Ball : MonoBehaviour {
 	// public Vector3 launchTorque;
 	private Rigidbody rigidBody;
 	private AudioSource audioSource;
-	private CameraControl cameraControl;
 
 	private Vector3 startPosition;
 	private Quaternion startRotation;
 
 	// Use this for initialization
 	void Start() {
-
-		Time.timeScale = 1f;
-		Time.fixedDeltaTime = 0.02f * 0.1f;
 		
 		rigidBody = GetComponent<Rigidbody>();
 		audioSource = GetComponent<AudioSource>();
-		cameraControl = GameObject.FindObjectOfType<CameraControl>();
 
 		rigidBody.useGravity = false;
 		rigidBody.maxAngularVelocity = Mathf.Infinity;
