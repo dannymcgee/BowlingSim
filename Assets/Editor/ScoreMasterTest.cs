@@ -133,8 +133,44 @@ public class ScoreMasterTest {
 
 	[Test]
 	public void T15StrikeInLastFrame() {
-		int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10, 2, 3 };
+		int[] rolls = {
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			10,
+			2,
+			3
+		};
 		int[] frames = { 2, 4, 6, 8, 10, 12, 14, 16, 18, 33 };
+		Assert.AreEqual( frames.ToList(), ScoreMaster.ScoreCumulative( rolls.ToList() ) );
+	}
+
+	[Test]
+	public void T16TurkeyOpen() {
+		int[] rolls = { 10, 10, 10 };
+		int[] frames = { 30 };
+		Assert.AreEqual( frames.ToList(), ScoreMaster.ScoreCumulative( rolls.ToList() ) );
+	}
+
+	[Test]
+	public void T17StrikeTo9Open() {
+		int[] rolls = { 10, 9 };
+		int[] frames = { };
 		Assert.AreEqual( frames.ToList(), ScoreMaster.ScoreCumulative( rolls.ToList() ) );
 	}
 

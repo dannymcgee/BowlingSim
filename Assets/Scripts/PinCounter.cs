@@ -27,8 +27,18 @@ public class PinCounter : MonoBehaviour {
 		if( objectHit.GetComponent<Ball>() ) {
 			// look for fallen pins when the ball enters the trigger
 			StartCounting();
+			// enter slow-mo for kewl factor
+			gameManager.toggleSlowMo();
 		}
 
+	}
+
+	void OnTriggerExit( Collider collider ) {
+		GameObject objectHit = collider.gameObject;
+		if( objectHit.GetComponent<Ball>() ) {
+			// okay that's enough slow-mo
+			gameManager.toggleSlowMo();
+		}
 	}
 
 	public void StartCounting() {

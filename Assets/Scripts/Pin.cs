@@ -23,18 +23,17 @@ public class Pin : MonoBehaviour {
 
 	public bool IsStanding() {
 
-		// FIXME - this code doesn't function as intended. It's supposed to return true if the rotation
-		// is within + or - 3 degrees of the standing rotation.
-		//
-		// Problem: negative rotation values are converted into their equivalent positives by Unity BEFORE
-		// being accessed by IsStanding. I.e., a rotation of -0.1 is read as 359.9 by IsStanding, causing it
-		// to return false even though it is well within the margin of error set by standingThreshold
-
+		// get the rotation of the pin in eulerAngles
 		eulerRotation = transform.rotation.eulerAngles;
+
+		// reset X and Z to a default value of zero
 		float xTilt = Mathf.Abs( 270 - eulerRotation.x );
 		float zTilt = Mathf.Abs( eulerRotation.z );
 
-		if( (xTilt < standingThreshold) && (zTilt < standingThreshold) ) {
+		if( 
+			// for X and Z, check whether we are within 3 degrees of 0 or 360
+			(xTilt < standingThreshold || xTilt > (360 - standingThreshold)) &&
+			(zTilt < standingThreshold || zTilt > (360 - standingThreshold)) ) {
 			return true;
 		} else {
 			return false;

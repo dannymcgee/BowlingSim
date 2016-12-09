@@ -2,88 +2,50 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ActionMaster {
-
+public static class ActionMaster {
 	public enum Action {
 		Tidy,
 		Reset,
 		EndTurn,
-		EndGame
+		EndGame,
+		Undefined}
 
-	}
+	;
 
-	private int[] bowls = new int[21];
-	private int bowl = 1;
+	public static Action NextAction( List<int> rolls ) {
+		Action nextAction = Action.Undefined;
+		int strikeOffset = 0;
 
-	public static Action NextAction( List<int> pinFalls ) {
+		for( int i = 0; i < rolls.Count; i++ ) { 				// Step through rolls
+			
+			int rollNumber = i + strikeOffset;
 
-		ActionMaster am = new ActionMaster();
-		Action currentAction = new Action();
-
-		foreach( int pinFall in pinFalls ) {
-			currentAction = am.Bowl( pinFall );
-		}
-
-		return currentAction;
-
-	}
-
-	// TODO - Make Bowl private
-	public Action Bowl( int pins ) {
-
-		// check for validity
-		if( pins < 0 || pins > 10 ) {
-			throw new UnityException( "Invalid pin count: " + pins.ToString() );
-		}
-
-		// get the number of pins for this roll
-		bowls[bowl - 1] = pins;
-
-		// end game if last bowl
-		if( bowl == 21 || (bowl == 20 && !Bowl21Awarded()) ) {
-			return Action.EndGame;
-		}
-
-		// if strike on first bowl of first frame, tidy on 2nd frame if < 10
-		if( bowl == 20 && bowls[19 - 1] == 10 && pins < 10 ) {
-			return Action.Tidy;
-		}
-
-		// if extra roll(s) awarded
-		if( bowl >= 19 && Bowl21Awarded() ) {
-			bowl++;
-			return Action.Reset;
-		}
-
-		// 1st bowl of the frame
-		if( bowl % 2 != 0 ) {
-
-			// if strike
-			if( pins == 10 ) {
-				bowl += 2;
-				return Action.EndTurn;
+			if( rollNumber == 20 ) {
+				nextAction = Action.EndGame;
+			} else if( rollNumber >= 18 && rolls[i] == 10 ) { 	// Handle last-frame special cases
+				nextAction = Action.Reset;
+			} else if( rollNumber == 19 ) {
+				if( rolls[i - 1] == 10 && rolls[i] == 0 ) {
+					nextAction = Action.Tidy;
+				} else if( rolls[i - 1] + rolls[i] == 10 ) {
+					nextAction = Action.Reset;
+				} else if( rolls[i - 1] + rolls[i] >= 10 ) {  	// Roll 21 awarded
+					nextAction = Action.Tidy;
+				} else {
+					nextAction = Action.EndGame;
+				}
+			} else if( rollNumber % 2 == 0 ) { 					// First bowl of frame
+				if( rolls[i] == 10 ) {
+					strikeOffset++; 										
+					nextAction = Action.EndTurn;
+				} else {
+					nextAction = Action.Tidy;
+				}
+			} else { 											// Second bowl of frame
+				nextAction = Action.EndTurn;
 			}
-			// if not strike
-			if( pins < 10 ) {
-				bowl++;
-				return Action.Tidy;
-			}
-
 		}
 
-		// 2nd bowl of the frame
-		else {
-			bowl++;
-			return Action.EndTurn;
-		}
-
-		// all conditionals fail
-		throw new UnityException( "Action.Bowl: All conditionals failed. What do?" );
-
+		return nextAction;
 	}
-
-	private bool Bowl21Awarded() {
-		return (bowls[19 - 1] + bowls[20 - 1] >= 10);
-	}
-
 }
