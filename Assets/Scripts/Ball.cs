@@ -42,11 +42,11 @@ public class Ball : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
-		if( Input.GetButtonDown( "Fire1" ) ) {
-			if( !inPlay ) {
-				Launch( launchVelocity, launchAngularVelocity );
-			}
-		}
+//		if( Input.GetButtonDown( "Fire1" ) ) {
+//			if( !inPlay ) {
+//				Launch( launchVelocity, launchAngularVelocity );
+//			}
+//		}
 	
 	}
 
